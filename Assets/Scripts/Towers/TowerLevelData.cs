@@ -14,34 +14,38 @@ public class TowerLevelData : ScriptableObject
     /// A description of the tower for displaying on the UI
     /// </summary>
     public string description;
-
+ 
     /// <summary>
     /// A description of the tower for displaying on the UI
     /// </summary>
     public string upgradeDescription;
 
-    /// <summary>
-    /// The cost to upgrade to this level
+    /// <summary> 
+    /// The initial purchase cost of the tower
     /// </summary>
-    public int cost;
+    public int buyInCost;
 
     /// <summary>
     /// The sell cost of the tower
     /// </summary>
-    public int sell;
+    public float sell;
 
     /// <summary>
-    /// The max health
+    /// The upgrade cost
     /// </summary>
-    public int maxHealth;
+    public float upgradeCost;
 
-    /// <summary>
-    /// The starting health
+    /// <summary> 
+    /// The reposition cost
     /// </summary>
-    public int startingHealth;
+    public int repoCost;
 
     /// <summary>
     /// The tower icon
     /// </summary>
     public Sprite icon;
+    public float range;
+    public int damage;
+    public float redeploySpeed;
+    public float fireRate;
 }

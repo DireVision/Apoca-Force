@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa10e93c5688c384597a3256a2ad9220, type: 3}
   m_Name: SampleTower 1
   m_EditorClassIdentifier: 
-  description: This is level 2
+  description: This is level 1
   upgradeDescription: Now that's a lotta damage
-  cost: 0
-  sell: 0
-  maxHealth: 0
-  startingHealth: 0
+  buyInCost: 200
+  sell: 100
+  upgradeCost: 200
+  repoCost: 100
   icon: {fileID: 0}
+  range: 5
+  damage: 2
+  redeploySpeed: 0
+  fireRate: 1

@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa10e93c5688c384597a3256a2ad9220, type: 3}
   m_Name: SampleTower 2
   m_EditorClassIdentifier: 
-  description: This is level 3
-  upgradeDescription: You have yet to see my final form!!
-  cost: 0
-  sell: 0
-  maxHealth: 0
-  startingHealth: 0
+  description: This is level 2
+  upgradeDescription: +2 dmg, +1 fire rate
+  buyInCost: 0
+  sell: 300
+  upgradeCost: 0
+  repoCost: 300
   icon: {fileID: 0}
+  range: 5
+  damage: 4
+  redeploySpeed: 0
+  fireRate: 2
