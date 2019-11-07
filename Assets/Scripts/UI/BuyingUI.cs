@@ -24,6 +24,13 @@ public class BuyingUI : MonoBehaviour
         if (isActive)
         {
             buyTurretUi.SetActive(true);
+
+            //Press mouse 2 to reset
+            if (Input.GetMouseButtonDown(2))
+            {
+                buyTurretUi.SetActive(false);
+                isActive = false;
+            }
         }
         else
         {

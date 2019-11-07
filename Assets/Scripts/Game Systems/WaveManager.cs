@@ -35,7 +35,7 @@ public class WaveManager : MonoBehaviour
     public GameObject normalEnemy;
     public GameObject fastEnemy;
 
-    void Start()
+    void OnEnable()
     {
         StartCoroutine("SpawnEnemy");
     }
@@ -56,12 +56,10 @@ public class WaveManager : MonoBehaviour
                 switch(enemyList[i].enemyToSpawn)
                 {
                     case Enemy.EnemyType.Normal:
-                        Debug.Log("Normal Enemy Deployed");
                         Instantiate(normalEnemy, transform.position, Quaternion.identity);
                         break;
 
                     case Enemy.EnemyType.Fast:
-                        Debug.Log("Fast Enemy Deployed");
                         Instantiate(fastEnemy, transform.position, Quaternion.identity);
                         break;
                 }

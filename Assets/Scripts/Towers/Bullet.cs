@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
     }
 
     void Update()
-    {
+    {      
         if(target == null)
         {
             Destroy(gameObject);
@@ -31,4 +31,9 @@ public class Bullet : MonoBehaviour
 
         transform.Translate(dir.normalized * distanceThisFrame, Space.World);
     }
+    /*private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag != "Player")
+        Destroy(gameObject);
+    }*/
 }

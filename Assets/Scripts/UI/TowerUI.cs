@@ -36,6 +36,16 @@ public class TowerUI : MonoBehaviour
         if (isSelected)
         {
             towerUiSub.SetActive(true);
+
+            //Press mouse 2 to reset
+            if (Input.GetMouseButtonDown(2))
+            {
+                towerUiSub.SetActive(false);
+                isSelected = false;
+
+                theTurretMnager.currentTurret.GetComponent<BoxCollider>().enabled = true;
+                theTurretMnager.currentTurret = null;
+            }
         }
         else
         {
@@ -45,7 +55,7 @@ public class TowerUI : MonoBehaviour
 
     public void Upgrade()
     {
-        if(playerBaseManager.coins > costToUpgrade && costToUpgrade != 0)
+        if(playerBaseManager.coins > costToUpgrade)
         {
             if (nextUpgrade != null)
             {
@@ -80,7 +90,7 @@ public class TowerUI : MonoBehaviour
     {
         if (playerBaseManager.coins > costToReposition)
         {
-            playerBaseManager.coins -= costToReposition;
+            //playerBaseManager.coins -= costToReposition;
             Debug.Log("Reposition!");
             theTurretMnager.isTeleporting = true;
         }
@@ -90,5 +100,10 @@ public class TowerUI : MonoBehaviour
         }
 
         towerUiSub.SetActive(false);
+    }
+
+    public void DeductMoney() //temporary fix for deducting money only when repositioning
+    {
+        playerBaseManager.coins -= costToReposition;
     }
 }

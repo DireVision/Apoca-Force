@@ -17,7 +17,6 @@ public class TurretManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //towerLevel = FindObjectOfType<TowerLevel>();
         isClick = false;
         isTeleporting = false;
         buyingUi = FindObjectOfType<BuyingUI>();
@@ -31,10 +30,18 @@ public class TurretManager : MonoBehaviour
         if (currentTurret == null)
         {
             isClick = false;
-
         }
         if (currentTurret != null && isTeleporting)
         {
+            if (currentTurret.GetComponent<TowerLevel>().agent.hasPath == false)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit))
+                {
+                    currentTurret.transform.LookAt(new Vector3(hit.point.x, currentTurret.GetComponent<TowerLevel>().transform.position.y, hit.point.z));
+                }
+            }
             MovingTurret();
         }
     }
@@ -67,18 +74,15 @@ public class TurretManager : MonoBehaviour
                     if (theTile.isLock == false && theTile.canBuy == true)
                     {
                         buyingUi.Activate(true, theTile.transform.position);
-                        Debug.Log(theTile.transform.position);
                     }
                 }
-
-
             }
         }
+        /*
         else if (Input.GetMouseButtonDown(1)) // place the turret
         {
             if (currentTurret != null)
             {
-                currentTurret.transform.localScale = new Vector3(1, 1, 1);
                 currentTurret.transform.GetComponent<BoxCollider>().enabled = true;
                 currentTurret.GetComponent<TowerUI>().isSelected = false;
                 currentTurret.GetComponent<TowerLevel>().isClickedOn = false;
@@ -88,13 +92,14 @@ public class TurretManager : MonoBehaviour
             }
             buyingUi.Activate(false, Vector3.zero);
         }
+        */
     }
     void MovingTurret()
     {
         TowerLevel selectedTurret = currentTurret.GetComponent<TowerLevel>();
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Input.GetMouseButtonDown(2))
+        if (Input.GetMouseButtonDown(1))
         {
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
@@ -103,11 +108,22 @@ public class TurretManager : MonoBehaviour
                 //Vector3 targetedPosition = new Vector3(hit.transform.position.x, hit.transform.position.y + 1, hit.transform.position.z);
                 Vector3 targetedPosition = hit.point;
                 selectedTurret.agent.SetDestination(targetedPosition);
-                Debug.Log(targetedPosition);
-                goto fix;
+                //goto fix;
+                currentTurret.GetComponent<TowerUI>().isSelected = false;            //This 2 lines
+                currentTurret.GetComponent<TowerUI>().DeductMoney();
+
+                if (currentTurret != null)
+                {
+                    currentTurret.transform.GetComponent<BoxCollider>().enabled = true;
+                    currentTurret.GetComponent<TowerUI>().isSelected = false;
+                    currentTurret.GetComponent<TowerLevel>().isClickedOn = false;
+                    currentTurret = null;
+                    isClick = false;
+                    isTeleporting = false;
+                }
             }
         }
-
+        /*
         fix:
         //Fix shit up
         if (Time.timeScale >= 1.0f && selectedTurret.agent.hasPath)
@@ -129,10 +145,11 @@ public class TurretManager : MonoBehaviour
             else
             {
                 selectedTurret.agent.updatePosition = false;
-                selectedTurret.transform.position = new Vector3(navhit.position.x, navhit.position.y + 1, navhit.position.z);
+                selectedTurret.transform.position = new Vector3(navhit.position.x, navhit.position.y, navhit.position.z);
                 selectedTurret.agent.nextPosition = selectedTurret.transform.position; //Set simulated agent to the gameObject's position
                 Debug.Log("Agent is moving");
             }
         }
+        */
     }
 }

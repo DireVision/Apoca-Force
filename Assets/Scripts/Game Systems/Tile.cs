@@ -62,7 +62,7 @@ public class Tile : MonoBehaviour
     }
     private void OnMouseExit()
     {
-        cubeRenderer.material.SetColor("_Color", Color.white);
+        //cubeRenderer.material.SetColor("_Color", Color.white);
     }
 
     void InstantTeleport()

@@ -7,7 +7,10 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     public Text coins;
-    public Text baseHealth;
+    public Image healthbar1;
+    public Image healthbar2;
+    public Image healthbar3;
+    public Image healthbar4;
 
     public GameObject loseUi;
     public bool isLoseUiActive;
@@ -24,7 +27,35 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         coins.text = "Coins: " + playerBaseManager.coins;
-        baseHealth.text = "Base Health: " + playerBaseManager.baseHealth;
+        
+        //This is very VERY inefficient, update later when the health is settled down.
+        if (playerBaseManager.baseHealth > 4)
+        {
+            healthbar1.fillAmount = 1;
+            healthbar2.fillAmount = 1;
+            healthbar3.fillAmount = 1;
+            healthbar4.fillAmount = 1;
+        }
+        else if (playerBaseManager.baseHealth < 4)
+        {
+            healthbar1.fillAmount = 1;
+            healthbar2.fillAmount = 1;
+            healthbar3.fillAmount = 1;
+            healthbar4.fillAmount = 0;
+
+            if (playerBaseManager.baseHealth < 3)
+            {
+                healthbar3.fillAmount = 0;
+                
+                if (playerBaseManager.baseHealth < 2)
+                {
+                    healthbar2.fillAmount = 0;
+
+                    if (playerBaseManager.baseHealth < 1)
+                        healthbar1.fillAmount = 0;
+                }
+            }
+        }
 
         if (isLoseUiActive)
         {

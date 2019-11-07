@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
 
     public bool unitDeployed;
     public float prepTimer = 30f;
+    public Text timerText;
     public static Action EndGame;
 
     private void OnEnable()
@@ -51,6 +52,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator PrepCounter()
     {
+        FindObjectOfType<WaveManager>().enabled = false;
         phaseUI.text = "Prep Phase";
 
         //While timer is not up and max units to move are up.
@@ -62,6 +64,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                timerText.text = ((int)timer).ToString();
                 yield return null;
             }
         }
@@ -69,6 +72,7 @@ public class GameManager : MonoBehaviour
         //Move over to action phase
         Debug.Log("Prep Phase is over, proceeding to Action Phase...");
         phaseUI.text = "Action Phase";
+        timerText.text = "";
         currentPhase = PhaseState.Action;
         FindObjectOfType<WaveManager>().enabled = true;
     }

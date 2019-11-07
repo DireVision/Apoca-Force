@@ -32,21 +32,32 @@ public class TowerLevel : MonoBehaviour
     public bool isClickedOn;
 
     public NavMeshAgent agent;
+    Animator anim;
 
-
-    private void Start()
+    void Start()
     {
         //InvokeRepeating("CheckEnemy", 0, 0.5f);
         turretManager = FindObjectOfType<TurretManager>();
         agent = GetComponent<NavMeshAgent>();
+        anim = GetComponentInChildren<Animator>();
+        agent.updateRotation = true;
+        //agent.speed = moveSpeed;
     }
-    private void Update()
+
+    void Update()
     {
-        CheckEnemy();
-        if (isClickedOn || target == null)
+        if (agent.velocity.magnitude > 0)
         {
-            //Debug.Log("12345");
-            transform.rotation = Quaternion.identity;
+            anim.SetBool("Moving", true);
+        }
+        else
+            anim.SetBool("Moving", false);
+
+        CheckEnemy();
+
+        if (isClickedOn || target == null || agent.velocity.magnitude > 0)
+        {
+            //transform.rotation = Quaternion.identity;
             return;
         }
         else
@@ -99,14 +110,11 @@ public class TowerLevel : MonoBehaviour
         if (shortestDistance <= range && nearestEnemy != null)
         {
             target = nearestEnemy.transform;
-            print("Target is in range");
         }
         else
         {
             target = null;
-            print("Target is out of range");
         }
-
     }
 
     //Raycast down to check tile
@@ -131,17 +139,17 @@ public class TowerLevel : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Tower Tile Bonus is equal to zero. Check the tile the tower is on.");
-                    return 1;
+                    //Debug.Log("Tower Tile Bonus is equal to zero. Check the tile the tower is on.");
+                    return damage;
                 }
             }
             else
             {
-                Debug.Log("Error: Tower is not detecting a valid tile. Check the raycast settings.");
-                return 1;
+                //Debug.Log("Error: Tower is not detecting a valid tile. Check the raycast settings.");
+                return damage;
             }
         }
-        else return 1;
+        else return damage;
     }
 
     public Text turretName;
